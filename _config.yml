@@ -14,7 +14,7 @@ timezone:
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Sid_The_Squid # the main title
+title: Sid The Squid # the main title
 
 tagline: The World is Wordeful and it's Broken!
 
@@ -23,7 +23,7 @@ description: >- # used by seo meta and the atom feed
 
 # Fill in the protocol & hostname for your site.
 # e.g. 'https://username.github.io', note that it does not end with a '/'.
-url: ""
+url:
 
 github:
   username: 47Cid # change to your github username
@@ -65,7 +65,7 @@ theme_mode: # [light|dark]
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar:
+avatar: images/gato.jpg
 
 # boolean type, the global switch for TOC in posts.
 toc: true

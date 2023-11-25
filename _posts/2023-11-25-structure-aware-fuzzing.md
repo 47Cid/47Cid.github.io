@@ -2,7 +2,7 @@
 layout: post
 title:  "Struct Aware Fuzzing"
 categories: [fuzzing,vulnerability-research]
-tags: [fuzzing, vulnerability-research]
+tags: [blah, blah]
 ---
 
 # Markdown syntax guide

@@ -8,7 +8,7 @@ tags: [fuzzing, vulnerability-research]
 # So what is fuzzing?
 Instead of giving you  a formal academic definition of fuzzing, I'm just going to show you this meme to give you an idea of what fuzzing is.
 
-![This is an alt text.](/images/random_bs_go.jpg "This is a sample image.")
+![This is an alt text.](/images/random.png "How do you do fellow kids?")
 
 Fuzzing inputs are only random sometimes, but they're bs most of the time.
 A more proper definition can be found [here][1]

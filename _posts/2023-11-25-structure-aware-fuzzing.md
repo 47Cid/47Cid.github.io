@@ -42,7 +42,6 @@ _You **can** combine them_
 
 ## Images
 
-![This is an alt text.](/images/sample.webp "This is a sample image.")
 
 ## Links
 

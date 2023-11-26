@@ -12,7 +12,9 @@ Instead of giving a formal academic definition of fuzzing, I'm just going to sho
 Fuzzing inputs are only random sometimes, but they're bs most of the time.
 A more proper definition can be found [here][1]
 
-# Fuzzing Methods:
+But wait!
+
+# Fuzzing Methods
 
 ## Whitebox fuzzing:
 * Whitebox fuzzing involves fuzzing a program with complete access to its source code.
@@ -33,6 +35,31 @@ A more proper definition can be found [here][1]
 * For example: Programs designed to interact with specific hardware components.
 * This is sometimes known as the re-hosting problem[ [5] ], and there is a lot of work yet to be done in this field [ [2], [3], [4] ].
 
+# But what really is feedback?
+During feedback-driven fuzzing the fuzzer leverages the feedback obtained from the target process and adapts its input generation based said feedback.
+Feedback is usually measured using various metrics such as:
+1) Code Coverage: The extent to which the source code of a program has been executed during the testing process
+2) Edge Coverage: Measurement of the transitions between basic blocks in the control flow graph of the program.
+3) Memory Usage: Tracking allocation and deallocation of memory during program execution.
+
+The terms "feedback-driven" and "coverage-guided" are frequently used interchangeably, but they are not the same for reasons explained above.
+### Source Code Instrumentation:
+Fuzzers can instrument the source code to collect coverage information by directly modifying it to add additional code during compilation.
+AFL enables source code instrumentation by integrating with other compilers. 
+```bash
+afl-gcc fuzz.c -o fuzz
+```
+AFL can also use the LLVM compiler to insert instrumentation code using LLVM passes
+```bash
+afl-clang-lto fuzz.c -o fuzz
+```
+
+### Binary Instrumentation:  
+Binary instrumentation, as the name suggests, involves modifying the compiled binary code of a program to insert additional instructions.
+
+For instance, you can use dynamic instrumentation toolkits like [Frida](https://frida.re/) to inject JavaScript or native code into running processes or intercept and modify function calls.
+
+> **Note:** It might be possible to whip up a coverage guided fuzzer using Frida, but I'm not sure how well it would perform.
 
 
 [1]: https://owasp.org/www-community/Fuzzing

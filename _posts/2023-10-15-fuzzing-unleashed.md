@@ -1,75 +1,31 @@
 ---
 layout: post
-title:  "Fuzzing Unleashed: A Brief Overview"
+title:  "Automated Chaos: A Brief Overview of Fuzzing"
 categories: [fuzzing,vulnerability-research]
 tags: [fuzzing, vulnerability-research]
 ---
 
-# Markdown syntax guide
-
-## Headers
-
-# This is a Heading h1
-## This is a Heading h2
-###### This is a Heading h6
-
-## Emphasis
-
-*This text will be italic*  
-_This will also be italic_
-
-**This text will be bold**  
-__This will also be bold__
-
-_You **can** combine them_
-
-## Lists
-
-### Unordered
-
-* Item 1
-* Item 2
-* Item 2a
-* Item 2b
-
-### Ordered
-
-1. Item 1
-2. Item 2
-3. Item 3
-    1. Item 3a
-    2. Item 3b
-
-## Images
+# So what is fuzzing?
+Instead of giving you  a formal academic definition of fuzzing, I'm just going to show you this meme to give you an idea of what fuzzing is.
 
 ![This is an alt text.](/images/random_bs_go.jpg "This is a sample image.")
 
-## Links
+Fuzzing inputs are only random sometimes, but they're bs most of the time.
+A more proper definition can be found [here][1]
+# Fuzzing Methods:
 
-You may be using [Markdown Live Preview](https://markdownlivepreview.com/).
-
-## Blockquotes
-
-> Markdown is a lightweight markup language with plain-text-formatting syntax, created in 2004 by John Gruber with Aaron Swartz.
->
->> Markdown is often used to format readme files, for writing messages in online discussion forums, and to create rich text using a plain text editor.
-
-## Tables
-
-| Left columns  | Right columns |
-| ------------- |:-------------:|
-| left foo      | right foo     |
-| left bar      | right bar     |
-| left baz      | right baz     |
-
-## Blocks of code
-
-```
-let message = 'Hello world';
-alert(message);
-```
-
-## Inline code
-
-This web site is using `markedjs/marked`.
-
+## Whitebox fuzzing:
+* Whitebox fuzzing involves fuzzing a program with complete access to its source code.
+* Feedback is measured by modifying the source code during compilation of the program. But we'll get into that later 😸
+## Greybox Fuzzing
+* In this method, the tester has limited knowledge of the application, like function prototypes or the decompiled code.
+* This approach can be really useful for fuzzing closed-source libraries with API documentation that's readily accessible.
+* For example: *Microsoft DirectX*
+## Blackbox Fuzzing
+* When you find yourself with just the binary and no source code, this method is your best bet.
+* Sometimes you might have to use emulation tools like Qemu or Unicorn to run binary files belonging to a different architecture.
+* Feedback in this case is measured via binary instrumentation.
+## Pitch-Blackbox Fuzzing
+* Okay, so I got a little creative here and just made this term up. But by 'pitch-black' I'm referring to programs that cannot be emulated. 
+* For example: Programs designed to interact with specific hardware components or embedded systems firmware
+* This is sometimes known as the re-hosting problem[ [5]], and there is a lot of work yet to be done in this field [ [2], [3], [4]].

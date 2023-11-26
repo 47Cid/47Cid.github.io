@@ -30,7 +30,7 @@ A more proper definition can be found [here][1]
 
 ## Pitch-Blackbox Fuzzing
 * Okay, so I got a little creative here and just made this term up. But by 'pitch-black' I mean programs that cannot be emulated.
-* For example: Programs designed to interact with specific hardware components or embedded systems firmware
+* For example: Programs designed to interact with specific hardware components.
 * This is sometimes known as the re-hosting problem[ [5] ], and there is a lot of work yet to be done in this field [ [2], [3], [4] ].
 
 

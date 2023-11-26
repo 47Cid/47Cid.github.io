@@ -29,3 +29,11 @@ A more proper definition can be found [here][1]
 * Okay, so I got a little creative here and just made this term up. But by 'pitch-black' I'm referring to programs that cannot be emulated. 
 * For example: Programs designed to interact with specific hardware components or embedded systems firmware
 * This is sometimes known as the re-hosting problem[ [5]], and there is a lot of work yet to be done in this field [ [2], [3], [4]].
+
+
+
+[1]: https://owasp.org/www-community/Fuzzing
+[2]: https://dl.acm.org/doi/10.1145/3423167
+[3]: https://hernan.de/research/papers/firmwire-ndss22-hernandez.pdf
+[4]: https://dl.acm.org/doi/10.1145/3427228.3427294
+[5]: https://www.s3.eurecom.fr/docs/asiaccs22_mantovani.pdf

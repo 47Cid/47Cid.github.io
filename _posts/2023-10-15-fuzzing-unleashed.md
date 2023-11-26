@@ -29,7 +29,7 @@ A more proper definition can be found [here][1]
 * Feedback in this case is measured via binary instrumentation.
 
 ## Pitch-Blackbox Fuzzing
-* Okay, so I got a little creative here and just made this term up. But by 'pitch-black' I'm referring to programs that cannot be emulated.
+* Okay, so I got a little creative here and just made this term up. But by 'pitch-black' I mean programs that cannot be emulated.
 * For example: Programs designed to interact with specific hardware components or embedded systems firmware
 * This is sometimes known as the re-hosting problem[ [5] ], and there is a lot of work yet to be done in this field [ [2], [3], [4] ].
 

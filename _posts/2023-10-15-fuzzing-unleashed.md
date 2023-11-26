@@ -9,11 +9,10 @@ tags: [fuzzing, vulnerability-research]
 Instead of giving a formal academic definition of fuzzing, I'm just going to show you a meme to give you some idea of what fuzzing is.
 
 ![This is an alt text.](/images/random.png "How do you do fellow kids?")
-
 Fuzzing inputs are only random sometimes, but they're bs most of the time.
 A more proper definition can be found [here][1]
-# Fuzzing Methods:
 
+# Fuzzing Methods:
 ## Whitebox fuzzing:
 * Whitebox fuzzing involves fuzzing a program with complete access to its source code.
 * Feedback is measured by modifying the source code during compilation of the program. But we'll get into that later 😸

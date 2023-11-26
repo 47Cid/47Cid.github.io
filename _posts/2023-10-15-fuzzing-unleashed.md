@@ -12,9 +12,9 @@ Instead of giving a formal academic definition of fuzzing, I'm just going to sho
 Fuzzing inputs are only random sometimes, but they're bs most of the time.
 A more proper definition can be found [here][1]
 
-### But hold on, there's more! 
-### Let's begin with a more targeted approach to explore the world of fuzzing.
-### Let's begin with...
+#### But hold on, there's more! 
+#### Let's begin with a more targeted approach to explore the world of fuzzing.
+#### Let's begin with...
 
 # Fuzzing Methods
 

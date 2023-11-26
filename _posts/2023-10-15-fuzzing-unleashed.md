@@ -43,7 +43,7 @@ Feedback is usually measured using various metrics such as:
 3) Memory Usage: Tracking allocation and deallocation of memory during program execution.
 
 The terms "feedback-driven" and "coverage-guided" are frequently used interchangeably, but they are not the same for reasons explained above.
-### Source Code Instrumentation:
+## Source Code Instrumentation:
 Fuzzers can instrument the source code to collect coverage information by directly modifying it to add additional code during compilation.
 AFL enables source code instrumentation by integrating with other compilers. 
 ```bash
@@ -54,7 +54,7 @@ AFL can also use the LLVM compiler to insert instrumentation code using LLVM pas
 afl-clang-lto fuzz.c -o fuzz
 ```
 
-### Binary Instrumentation:  
+## Binary Instrumentation:  
 Binary instrumentation, as the name suggests, involves modifying the compiled binary code of a program to insert additional instructions.
 
 For instance, you can use dynamic instrumentation toolkits like [Frida](https://frida.re/) to inject JavaScript or native code into running processes or intercept and modify function calls.

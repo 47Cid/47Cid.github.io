@@ -16,7 +16,8 @@ timezone:
 
 title: Sid The Squid # the main title
 
-tagline: hey \n hi
+tagline: hey
+         hi
 
 description: >- # used by seo meta and the atom feed
   My Personal Blog

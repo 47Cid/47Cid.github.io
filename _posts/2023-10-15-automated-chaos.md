@@ -6,7 +6,7 @@ tags: [fuzzing, vulnerability-research]
 ---
 
 # So what is fuzzing?
-Instead of giving a formal academic definition of fuzzing, I'm just going to show you a meme to give you some idea of what fuzzing is.
+Instead of giving a formal academic definition of fuzzing, I'm just going to use this meme to give you some vauge idea of what fuzzing is.
 
 ![This is an alt text.](/images/random.png "How do you do fellow kids?")
 Fuzzing inputs are only random sometimes, but they're bs most of the time.

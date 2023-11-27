@@ -36,7 +36,7 @@ A more proper definition can be found [here][1]
 * For example: Programs designed to interact with specific hardware components.
 * This is known as the re-hosting problem[ [5] ]. This is a really big problem and there's very limited work done in this field [ [2], [3], [4] ].
 
-# But what is feedback?
+## But what is feedback?
 We need to somehow measure the efficacy of a fuzzing test.
 We need to get some kind of 'feedback' from the process while it's being fuzzed.
 
@@ -50,11 +50,11 @@ Feedback is usually measured using various metrics such as:
 
 > **Note:** The terms "feedback-driven" and "coverage-guided" are frequently used interchangeably, but they are not necessarily the same. Feedback-driven fuzzing is a broader term that encompasses coverage-guided fuzzing.
 
-### Coverage
+### Coverage Tools
 afl-plot, afl-cov
- ### VSCode Plugin For Code Coverage
+### VSCode Plugin For Code Coverage
 * https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters
-###### Ghidra Plugin For Code Coverage
+#### Ghidra Plugin For Code Coverage
 * https://github.com/nccgroup/Cartographer
 * https://github.com/0ffffffffh/dragondance
 

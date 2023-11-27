@@ -64,6 +64,51 @@ For instance, you can use dynamic instrumentation toolkits like [Frida](https://
 > **Note:** It might be possible to whip up a coverage guided fuzzer using Frida, but I'm not sure how well it would perform.
 
 
+## Mutations
+Mutation-Based:
+- Bit flips: Randomly flipping individual bits in the input.
+- Byte flips: Randomly flipping entire bytes in the input.
+- Insertions: Inserting random data into the input.
+- Deletions: Removing portions of the input.
+Inputs that lead to new or uncovered code paths are considered interesting and may be prioritized for further mutation
+
+AFL is a wildcard because of custom mutators (Grammar-Mutator)
+https://aflplus.plus/features/
+
+## Input Seed Generation:
+The initial set of seed inputs in the corpus serves as a starting point for the fuzzer. These seeds are typically valid inputs that help the fuzzer understand the structure and expected format of input data.
+
+### Coverage
+ afl-plot, afl-cov
+ ### VSCode Plugin For Code Coverage
+* https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters
+###### Ghidra Plugin For Code Coverage
+* https://github.com/nccgroup/Cartographer
+* https://github.com/0ffffffffh/dragondance
+
+
+Generate More Crashes (Santizers)
+ASAN works by mapping the program's memory to a shadow map. This takes up more space and hence the -m none flag is needed
+
+#### Some pitfalls:
+To much IO is bad!
+* https://barro.github.io/2018/06/afl-fuzz-on-different-file-systems/
+* https://www.cipherdyne.org/blog/2014/12/ram-disks-and-saving-your-ssd-from-afl-fuzzing.html
+
+TLDR: tmpfs based file system is best. It's also better than ramfs because it does not grow dynamically
+
+I also added --memory tag
+
+```bash
+docker pull aflplusplus/aflplusplus
+
+docker run -ti -v ~/src-dir:/src --memory=1024m \
+--mount type=tmpfs,destination=/ramdisk -e \
+AFL_TMPDIR=/ramdisk aflplusplus/aflplusplus
+```
+
+
+
 [1]: https://owasp.org/www-community/Fuzzing
 [2]: https://dl.acm.org/doi/10.1145/3423167
 [3]: https://hernan.de/research/papers/firmwire-ndss22-hernandez.pdf

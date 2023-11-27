@@ -5,15 +5,14 @@ categories: [fuzzing,vulnerability-research]
 tags: [fuzzing, vulnerability-research]
 ---
 
-# So what is fuzzing?
-Instead of giving a formal academic definition of fuzzing, I'm going start with this meme to give you some vauge idea of what fuzzing is.
+# What is fuzzing, really?
+Instead of giving a formal academic definition of fuzzing, I'm going to begin with this meme to give you a vague idea of what fuzzing is.
 
-![This is an alt text.](/images/random.png "How do you do fellow kids?")
+![This is an alt text.](/images/random.png "Much random")
 Fuzzing inputs are only random sometimes, but they're bs most of the time.
 A more proper definition can be found [here][1]
 
-#### But hold on, there's more! 
-#### Let's begin with a more targeted approach to explore the world of fuzzing.
+#### But let's begin with a more targeted approach to explore the world of fuzzing.
 #### Let's begin with...
 
 # Fuzzing Methods
@@ -25,7 +24,7 @@ A more proper definition can be found [here][1]
 ## Greybox Fuzzing
 * In this method, the tester has limited knowledge of the application, like function prototypes or the decompiled code.
 * This approach can be really useful for fuzzing closed-source libraries with API documentation that's readily accessible.
-* For example: *Microsoft DirectX*
+* For example: *Microsoft Windows API*
 
 ## Blackbox Fuzzing
 * When you find yourself with just the binary and no source code, this method is your best bet.
@@ -37,14 +36,31 @@ A more proper definition can be found [here][1]
 * For example: Programs designed to interact with specific hardware components.
 * This is known as the re-hosting problem[ [5] ]. This is a really big problem and there's very limited work done in this field [ [2], [3], [4] ].
 
-# But what really is feedback?
-During feedback-driven fuzzing the fuzzer leverages the feedback obtained from the target process and adapts its input generation based said feedback.
-Feedback is usually measured using various metrics such as:
-1) Code Coverage: The extent to which the source code of a program has been executed during the testing process
-2) Edge Coverage: Measurement of the transitions between basic blocks in the control flow graph of the program.
-3) Memory Usage: Tracking allocation and deallocation of memory during program execution.
+# But what is feedback?
+We need to somehow measure the efficacy of a fuzzing test.
+We need to get some kind of 'feedback' from the process while it's being fuzzed.
 
-The terms "feedback-driven" and "coverage-guided" are frequently used interchangeably, but they are not the same for reasons explained above.
+The fuzzer could then leverage the feedback obtained from the target process and adapt its input generation.
+
+Feedback is usually measured using various metrics such as:
+1) Code Coverage: This is the most important form of feedback. It measures the extent to which the source code of a program has been executed during the testing process
+2) Edge Coverage: Even [100%](https://roelofjanelsinga.com/articles/100-test-coverage-why-or-why-not/) code coverage does not guarantee effective testing. As such, measurement of the transitions between basic blocks in the control flow graph of the program can also provide useful insight during fuzzing.
+3) Memory Usage: It can also be useful to keep track of how the target application allocates and deallocates memory during the execution of test cases.
+4) Input Validation: It is might be helpful for the fuzzer to know whether the input being supplied to the target process is valid.
+
+> **Note:** The terms "feedback-driven" and "coverage-guided" are frequently used interchangeably, but they are not necessarily the same. Feedback-driven fuzzing is a broader term that encompasses coverage-guided fuzzing.
+
+### Coverage
+afl-plot, afl-cov
+ ### VSCode Plugin For Code Coverage
+* https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters
+###### Ghidra Plugin For Code Coverage
+* https://github.com/nccgroup/Cartographer
+* https://github.com/0ffffffffh/dragondance
+
+## Instrumentation
+Instrumentation is the process of injecting additional code into a program to collect data about its runtime or to modify the program's behavior.
+
 ## Source Code Instrumentation:
 Fuzzers can instrument the source code to collect coverage information by directly modifying it to add additional code during compilation.
 AFL enables source code instrumentation by integrating with other compilers. 
@@ -61,16 +77,20 @@ Binary instrumentation, as the name suggests, involves modifying the compiled bi
 
 For instance, you can use dynamic instrumentation toolkits like [Frida](https://frida.re/) to inject JavaScript or native code into running processes or intercept and modify function calls.
 
-> **Note:** It might be possible to whip up a coverage guided fuzzer using Frida, but I'm not sure how well it would perform.
+> **Note:** It might be possible to whip up a pretty interesting coverage guided fuzzer using Frida, but I'm not sure how well it would perform. To my knowledge, I don't think anyone has done this.
 
 
 ## Mutations
+Mutation-based fuzzing is a technique where new test inputs are generated by tweaking existing inputs.
+
+In the case of feedback-driven fuzzing, the feedback information is used to guide further mutations.
+Inputs that lead to new or uncovered code paths are considered interesting and may be prioritized for further mutation
+
 Mutation-Based:
 - Bit flips: Randomly flipping individual bits in the input.
 - Byte flips: Randomly flipping entire bytes in the input.
 - Insertions: Inserting random data into the input.
 - Deletions: Removing portions of the input.
-Inputs that lead to new or uncovered code paths are considered interesting and may be prioritized for further mutation
 
 AFL is a wildcard because of custom mutators (Grammar-Mutator)
 https://aflplus.plus/features/
@@ -78,20 +98,14 @@ https://aflplus.plus/features/
 ## Input Seed Generation:
 The initial set of seed inputs in the corpus serves as a starting point for the fuzzer. These seeds are typically valid inputs that help the fuzzer understand the structure and expected format of input data.
 
-### Coverage
- afl-plot, afl-cov
- ### VSCode Plugin For Code Coverage
-* https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters
-###### Ghidra Plugin For Code Coverage
-* https://github.com/nccgroup/Cartographer
-* https://github.com/0ffffffffh/dragondance
+
 
 
 Generate More Crashes (Santizers)
 ASAN works by mapping the program's memory to a shadow map. This takes up more space and hence the -m none flag is needed
 
 #### Some pitfalls:
-To much IO is bad!
+Too much IO is bad!
 * https://barro.github.io/2018/06/afl-fuzz-on-different-file-systems/
 * https://www.cipherdyne.org/blog/2014/12/ram-disks-and-saving-your-ssd-from-afl-fuzzing.html
 

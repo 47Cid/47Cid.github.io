@@ -21,20 +21,30 @@ A more proper definition can be found [here][1]
 * Whitebox fuzzing involves fuzzing a program with complete access to its source code.
 * Feedback is measured by modifying the source code during compilation of the program. But we'll get into that later 😸
 
+Fuzzing tools suited for whitebox testing: [AFLPlusPlus](https://github.com/AFLplusplus/AFLplusplus), [libFuzzer](https://llvm.org/docs/LibFuzzer.html), [Honggfuzz](https://github.com/google/honggfuzz), [python-afl](https://github.com/jwilk/python-afl)
+
 ## Greybox Fuzzing
 * In this method, the tester has limited knowledge of the application, like function prototypes or the decompiled code.
 * This approach can be really useful for fuzzing closed-source libraries with API documentation that's readily accessible.
 * For example: *Microsoft Windows API*
+
+Fuzzing tools suited for grebox testing: [syzkaller](https://github.com/google/syzkaller/tree/master), [Hopper](https://github.com/FuzzAnything/Hopper), [aflnet](https://github.com/aflnet/aflnet), [aflgo](https://github.com/aflgo/aflgo), [boofuzz](https://github.com/jtpereyda/boofuzz), [AFLPlusPlus](https://github.com/AFLplusplus/AFLplusplus)
 
 ## Blackbox Fuzzing
 * When you find yourself with just the binary and no source code, this method is your best bet.
 * Sometimes you might have to use emulation tools like Qemu or Unicorn to run binary files belonging to a different architecture.
 * Feedback in this case is measured via binary instrumentation.
 
+Fuzzing tools suited for blackbox testing: [radamsa](https://gitlab.com/akihe/radamsa), [winafl](https://github.com/googleprojectzero/winafl), [Peach Fuzzer](https://peachtech.gitlab.io/peach-fuzzer-community/), [AFLPlusPlus](https://github.com/AFLplusplus/AFLplusplus)
+
 ## Pitch-Blackbox Fuzzing
-* Okay, so I got a little creative here and just made this term up. But by 'pitch-black' I mean programs that cannot be emulated.
+* Okay, so I got a little creative here and just made this term up. But by 'pitch-black' I mean programs that cannot be emulated.  This distinction becomes really important when it comes to dynamic analysis like fuzzing.
 * For example: Programs designed to interact with specific hardware components.
 * This is known as the re-hosting problem[ [5] ]. This is a really big problem and there's very limited work done in this field [ [2], [3], [4] ].
+
+Fuzzing tools suited for pitch-blackbox testing: 🌵🌀
+
+> **Note:** Okay, maybe [Firmwire](https://github.com/FirmWire/FirmWire) is an execption, but I'm not familiar with any other fuzzing tools like this. Hit me up if you know something I don't
 
 ## But what is feedback?
 We need to somehow measure the efficacy of a fuzzing test.
@@ -46,15 +56,22 @@ Feedback is usually measured using various metrics such as:
 1) Code Coverage: This is the most important form of feedback. It measures the extent to which the source code of a program has been executed during the testing process
 2) Edge Coverage: Even [100%](https://roelofjanelsinga.com/articles/100-test-coverage-why-or-why-not/) code coverage does not guarantee effective testing. As such, measurement of the transitions between basic blocks in the control flow graph of the program can also provide useful insight during fuzzing.
 3) Memory Usage: It can also be useful to keep track of how the target application allocates and deallocates memory during the execution of test cases.
-4) Input Validation: It is might be helpful for the fuzzer to know whether the input being supplied to the target process is valid.
+4) Input Validation: It might be helpful for the fuzzer to know whether the input being supplied to the target process is valid.
 
 > **Note:** The terms "feedback-driven" and "coverage-guided" are frequently used interchangeably, but they are not necessarily the same. Feedback-driven fuzzing is a broader term that encompasses coverage-guided fuzzing.
 
 ### Coverage Tools
-afl-plot, afl-cov
-### VSCode Plugin For Code Coverage
+#### afl-plot
+Useful for generating graphical representations of AFL's performance and coverage data.
+
+#### afl-cov
+Provides code coverage information collected during the fuzzing campaign
+
+### Code Coverage visualizers
+
+#### VSCode
 * https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters
-#### Ghidra Plugin For Code Coverage
+#### Ghidra 
 * https://github.com/nccgroup/Cartographer
 * https://github.com/0ffffffffh/dragondance
 

@@ -115,7 +115,8 @@ Examples:
 
 >if (header.magic_value == 0x12345678) goto terminate_now;
 
-This method by itself can be [exteremly powerful](https://lcamtuf.blogspot.com/2014/11/pulling-jpegs-out-of-thin-air.html). 
+This method by itself can be exteremly powerful, such as mutating a string into valid [JPEG images](https://lcamtuf.blogspot.com/2014/11/pulling-jpegs-out-of-thin-air.html). 
+
 You could also further enhance this by making use of [AFL Dictionaries](https://github.com/AFLplusplus/AFLplusplus/blob/stable/dictionaries/README.md)
 
 Lexical mutations involve modifying the input data while taking into account these specific values, by like deleting, or substituting characters or tokens.
@@ -123,7 +124,7 @@ Lexical mutations involve modifying the input data while taking into account the
 ### Syntactic Mutations
 
 ### Semantic Mutations
-
+Semantic mutations require an understanding of the underlying logic and behavior of the program.
 
 AFL is a wildcard because of custom mutators (Grammar-Mutator)
 https://aflplus.plus/features/

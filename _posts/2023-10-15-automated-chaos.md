@@ -148,11 +148,11 @@ Semantic mutations require an understanding of the underlying semantics program'
 
 > **Additional Note:** Take this part with a grain of salt. This is my attempt at broadly categorizing all the mutation techniques.
 
-## Input Seed Generation:
+## Input Seed Generation: Where Fuzzing Begins to Sprout
 The initial set of seed inputs in the corpus serves as a starting point for the fuzzer. These seeds are typically valid inputs that help the fuzzer understand the structure and expected format of input data.
 
 
-## Crash On Demand (Santizers)
+## Crash Back Guarantee (Santizers)
 ASAN works by mapping the program's memory to a shadow map. This takes up more space and hence the -m none flag is needed
 
 ## Pitfalls and Side-Effects:
@@ -171,7 +171,7 @@ This [blog post](https://barro.github.io/2018/06/afl-fuzz-on-different-file-syst
 
 ### Syscalls
 If you have access to the source code, you may want to eliminate any potentially harmful syscalls, as you never know how the program is going to behave while being fuzzed.
-Additionaly, if you have just the binary file, you can make use of custom preload libraries such as [preeny](https://github.com/zardus/preeny) to change the behavior of the syscalls.
+Additionaly, if you have just the binary file, you can make use of custom preload libraries such as [preeny](https://github.com/zardus/preeny) to dynamically change the behavior of the syscalls.
  
 #### Other reasons to edit syscalls may include:
 * Redirecting socket IO to the console
@@ -204,3 +204,11 @@ AFL_TMPDIR=/ramdisk aflplusplus/aflplusplus
 [10]: https://arxiv.org/pdf/2309.03496.pdf
 
 ## Some additional references
+https://github.com/antonio-morales/Fuzzing101
+https://j00ru.vexillium.org/slides/2016/blackhat.pdf
+https://www.fuzzingbook.org/
+https://moyix.blogspot.com/2016/07/fuzzing-with-afl-is-an-art.html
+https://lcamtuf.blogspot.com/2015/04/finding-bugs-in-sqlite-easy-way.html
+https://blog.attify.com/fuzzing-iot-devices-part-1/
+https://users.cs.utah.edu/~snagy/courses/cs5963/schedule
+https://github.com/parikhakshat/autoharness

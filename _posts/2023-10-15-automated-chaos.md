@@ -105,9 +105,13 @@ Inputs that lead to new or uncovered code paths are considered interesting and m
 ### Mutation techniques:
 
 ### Random
-In AFL terminology, one of the most common mutation strategies is the "havoc" technique. This involves aggressive and chaotic mutations like random bit/byte flipping.
+This involves aggressive and chaotic mutations of the input data like:
+* Random bit/byte flipping
+* Deterministic arithmetics
+* Combining portions of different inputs
+* Overwriting the input with interesting 8, 16 and 32-bit values
 
-![Random](https://imgs.xkcd.com/comics/im_so_random_2x.png )
+![Random](/images/im_so_random_2x.png)
 Source: https://xkcd.com/
 
 ### Lexical
@@ -129,14 +133,19 @@ Lexical mutations involve modifying the input data while taking into account the
 ### Syntactic
 This is useful for fuzzing programs that require highly structured inputs such as interpreters and compilers[ [6] ]. Additionally, you can think of this as feeding the target program input data that can find crashes "deeper" in the program.
 
+![tree](/images/tree.png)
+Source: https://github.com/nautilus-fuzz/nautilus/tree/master
+
 Grammar-aware fuzzing is usually done by providing the fuzzer a grammar file. [ [7], [8], [9] ]
 
-> **Note:** The grammar file doesn't have to be comprehensive for fuzzing purposes. But exactly how much "structure" one should provide to find the most bugs is an interesting question. Again, if you know something about this....([Discord](https://discord.com/users/244064067541663744))
+> **Note:** The grammar file doesn't have to be comprehensive for fuzzing purposes. But exactly how much "structure" one should provide to find the most bugs is an interesting question. (Again, if you know something about this....[Discord](https://discord.com/users/244064067541663744))
 
 ### Semantic
 Semantic mutations require an understanding of the underlying semantics program's API, such as the s function signatures and type definitions [ [10] ].
 
 > **Note:** AFL doesn't really fall into any one category because it allows you to write your own [custom mutators](https://aflplus.plus/features/).
+
+> **Additional Note:** Take this part with a grain of salt. This is my attempt at broadly categorizing all the mutation techniques.
 
 ## Input Seed Generation:
 The initial set of seed inputs in the corpus serves as a starting point for the fuzzer. These seeds are typically valid inputs that help the fuzzer understand the structure and expected format of input data.

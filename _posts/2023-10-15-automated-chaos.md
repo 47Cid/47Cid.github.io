@@ -7,10 +7,12 @@ tags: [fuzzing, vulnerability-research]
 
 # What is fuzzing, really?
 ![This is an alt text.](/images/random.png "Much random")
-> **Note:** Fuzzing inputs are only random sometimes, but they're bs most of the time.
+> **Note:** Fuzzing inputs are only random sometimes, but they are bs most of the time.
+
+#### Fuzzing or fuzz testing involves bombarding a program with irregular inputs to uncover potential bugs and vulnerabilities.
 
 
-#### Let's first try to understand fuzzing by looking at some of the...
+#### Let's try to further understand this statement by looking at some of the...
 
 # Fuzzing Methods
 

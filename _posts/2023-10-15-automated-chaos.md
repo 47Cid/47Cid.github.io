@@ -29,7 +29,7 @@ Fuzzing tools suited for grebox testing: [syzkaller](https://github.com/google/s
 
 ## Blackbox Fuzzing
 * When you find yourself with just the binary and no source code, this method is your best bet.
-* Sometimes you might have to use emulation tools like Qemu or Unicorn to run binary files belonging to a different architecture.
+* Sometimes you might have to use emulation tools like [Qemu](https://github.com/AFLplusplus/qemuafl) or [Unicorn](https://github.com/AFLplusplus/unicornafl) to run binary files belonging to a different architecture.
 * Feedback in this case is measured via binary instrumentation.
 
 Fuzzing tools suited for blackbox testing: [radamsa](https://gitlab.com/akihe/radamsa), [winafl](https://github.com/googleprojectzero/winafl), [Peach Fuzzer](https://peachtech.gitlab.io/peach-fuzzer-community/), [AFLPlusPlus](https://github.com/AFLplusplus/AFLplusplus)

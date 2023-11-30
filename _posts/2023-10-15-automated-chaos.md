@@ -7,7 +7,7 @@ tags: [fuzzing, vulnerability-research]
 
 # What is fuzzing, really?
 ![This is an alt text.](/images/random.png "Much random")
-> **Note:** Fuzzing inputs are only random sometimes, but they are bs most of the time.
+> **Note:** Fuzzing inputs are only random sometimes, but they are BS most of the time.
 
 #### Fuzzing or fuzz testing involves bombarding a program with irregular inputs to uncover potential bugs and vulnerabilities.
 
@@ -109,7 +109,7 @@ This involves aggressive and chaotic mutations of the input data like:
 * Random bit/byte flipping
 * Deterministic arithmetics
 * Combining portions of different inputs
-* Overwriting the input with interesting 8, 16 and 32-bit values
+* Overwriting the input with interesting 8, 16, and 32-bit values
 
 ![Random](/images/im_so_random_2x.png)
 Source: https://xkcd.com/
@@ -117,7 +117,7 @@ Source: https://xkcd.com/
 ### Lexical
 For higher code coverage, it's beneficial for the input data to contain certain "interesting" characters or tokens.
 
-[State of the art fuzzers](https://lcamtuf.blogspot.com/2014/11/afl-fuzz-nobody-expects-cdata-sections.html), will analyze comparison operations to extract such interesting constants that enable the fuzzer to generate input data that can explore more branches. 
+[State-of-the-art fuzzers](https://lcamtuf.blogspot.com/2014/11/afl-fuzz-nobody-expects-cdata-sections.html), will analyze comparison operations to extract such interesting constants that enable the fuzzer to generate input data that can explore more branches. 
 
 Examples:
 >if (strcmp(header.magic_password, "h4ck3d by p1gZ")) goto terminate_now;
@@ -134,6 +134,7 @@ Lexical mutations involve modifying the input data while taking into account the
 This is useful for fuzzing programs that require highly structured inputs such as interpreters and compilers[ [6] ]. Additionally, you can think of this as feeding the target program input data that can find crashes "deeper" in the program.
 
 ![tree](/images/tree.png)
+
 Source: https://github.com/nautilus-fuzz/nautilus/tree/master
 
 Grammar-aware fuzzing is usually done by providing the fuzzer a grammar file. [ [7], [8], [9] ]
@@ -151,20 +152,36 @@ Semantic mutations require an understanding of the underlying semantics program'
 The initial set of seed inputs in the corpus serves as a starting point for the fuzzer. These seeds are typically valid inputs that help the fuzzer understand the structure and expected format of input data.
 
 
-Generate More Crashes (Santizers)
+## Crash On Demand (Santizers)
 ASAN works by mapping the program's memory to a shadow map. This takes up more space and hence the -m none flag is needed
 
-## Some common pitfalls:
+## Pitfalls and Side-Effects:
 
-### IO 
-Too much IO is bad!
-* https://barro.github.io/2018/06/afl-fuzz-on-different-file-systems/
-* https://www.cipherdyne.org/blog/2014/12/ram-disks-and-saving-your-ssd-from-afl-fuzzing.html
+### IO:
+The fuzzer may generate a large number of input test cases. 
+Along with this, the fuzzer may also read and write to these test cases to mutate them. This leads to intensive Input/Output (IO) operations on the storage device. Depending on your filesystem and how long you run the fuzzer, this may have adverse consequences.
 
-TLDR: tmpfs based file system is best. It's also better than ramfs because it does not grow dynamically
+This [blog post](https://barro.github.io/2018/06/afl-fuzz-on-different-file-systems/) I found compares the effects of fuzzers on various filesystems.
 
-I also added --memory tag
+![This is an alt text.](/images/sponge.webp "Much random")
 
+> TLDR: RAM file systems are the safest option. Tmpfs is slightly better than ramfs because it does not grow dynamically.
+
+> AFL supports this via the AFL_TMPDIR environment variable.
+
+### Syscalls
+If you have access to the source code, you may want to eliminate any potentially harmful syscalls, as you never know how the program is going to behave while being fuzzed.
+Additionaly, if you have just the binary file, you can make use of custom preload libraries such as [preeny](https://github.com/zardus/preeny) to change the behavior of the syscalls.
+ 
+#### Other reasons to edit syscalls may include:
+* Redirecting socket IO to the console
+* Disabling forking
+* Disabling rand() and random()
+* Redirecting file IO
+
+Most of these problems are fixed by [containerization ](https://github.com/AFLplusplus/AFLplusplus/blob/stable/docs/INSTALL.md).
+
+Example:
 ```bash
 docker pull aflplusplus/aflplusplus
 
@@ -173,11 +190,7 @@ docker run -ti -v ~/src-dir:/src --memory=1024m \
 AFL_TMPDIR=/ramdisk aflplusplus/aflplusplus
 ```
 
-### Networking
-
-### Syscalls
-
-
+> **Note:** I added the '--memory' tag to impose a constraint on memory usage.
 
 [1]: https://owasp.org/www-community/Fuzzing
 [2]: https://dl.acm.org/doi/10.1145/3423167
@@ -190,4 +203,4 @@ AFL_TMPDIR=/ramdisk aflplusplus/aflplusplus
 [9]: https://github.com/vrthra/F1
 [10]: https://arxiv.org/pdf/2309.03496.pdf
 
-## Some additional refrences
+## Some additional references

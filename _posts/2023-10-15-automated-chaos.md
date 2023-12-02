@@ -94,7 +94,7 @@ For instance, you can use dynamic instrumentation toolkits like [Frida](https://
 
 ## Input Seed Generation: Where Fuzzing Begins to Sprout
 The initial set of seed inputs in the corpus serves as a starting point for the fuzzer. These seeds are typically valid inputs that help the fuzzer understand the structure and expected format of input data.  
-Aim for diversity in the input corpora(plural form of corpus 🤓) to increase the chances of discovering a wide range of vulnerabilities.  
+Aim for diversity in the input corpora(that's plural form of corpus 🤓) to increase the chances of discovering a wide range of vulnerabilities.  
 Alternatively, one could also leverage the test suites and example usage often included in the source code repository.  
 
 ## Mutations

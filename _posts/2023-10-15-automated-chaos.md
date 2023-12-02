@@ -25,7 +25,7 @@ Fuzzing tools suited for whitebox testing: [AFLPlusPlus](https://github.com/AFLp
 * This approach can be really useful for fuzzing closed-source libraries with API documentation that's readily accessible.
 * For example: *Microsoft Windows API*
 
-Fuzzing tools suited for grebox testing: [syzkaller](https://github.com/google/syzkaller/tree/master), [Hopper](https://github.com/FuzzAnything/Hopper), [aflnet](https://github.com/aflnet/aflnet), [aflgo](https://github.com/aflgo/aflgo), [boofuzz](https://github.com/jtpereyda/boofuzz), [AFLPlusPlus](https://github.com/AFLplusplus/AFLplusplus)
+Fuzzing tools suited for greybox testing: [syzkaller](https://github.com/google/syzkaller/tree/master), [Hopper](https://github.com/FuzzAnything/Hopper), [aflnet](https://github.com/aflnet/aflnet), [aflgo](https://github.com/aflgo/aflgo), [boofuzz](https://github.com/jtpereyda/boofuzz), [AFLPlusPlus](https://github.com/AFLplusplus/AFLplusplus)
 
 ## Blackbox Fuzzing
 * When you find yourself with just the binary and no source code, this method is your best bet.
@@ -57,11 +57,9 @@ Feedback is usually measured using various metrics such as:
 > **Note:** The terms "feedback-driven" and "coverage-guided" are frequently used interchangeably, but they are not necessarily the same. Feedback-driven fuzzing is a broader term that encompasses coverage-guided fuzzing.
 
 ### Coverage Tools
-#### afl-plot
-Useful for generating graphical representations of AFL's performance and coverage data.
+#### afl-plot: Useful for generating graphical representations of AFL's performance and coverage data.
 
-#### afl-cov
-Provides code coverage information collected during the fuzzing campaign
+#### afl-cov: Provides code coverage information collected during the fuzzing campaign
 
 ### Code Coverage visualizers
 

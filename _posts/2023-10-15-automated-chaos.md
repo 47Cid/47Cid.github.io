@@ -57,9 +57,9 @@ Feedback is usually measured using various metrics such as:
 > **Note:** The terms "feedback-driven" and "coverage-guided" are frequently used interchangeably, but they are not necessarily the same. Feedback-driven fuzzing is a broader term that encompasses coverage-guided fuzzing.
 
 ### Coverage Tools
-#### afl-plot: Useful for generating graphical representations of AFL's performance and coverage data.
+**afl-plot**: Useful for generating graphical representations of AFL's performance and coverage data.
 
-#### afl-cov: Provides code coverage information collected during the fuzzing campaign
+**afl-cov**: Provides code coverage information collected during the fuzzing campaign
 
 ### Code Coverage visualizers
 

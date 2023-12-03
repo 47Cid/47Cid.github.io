@@ -9,8 +9,9 @@ tags: [fuzzing, vulnerability-research, dynamic-analysis]
 ![This is an alt text.](/images/random.png "Much random")
 > **Note:** Fuzzing inputs are only random sometimes, but they are BS most of the time.
 
-#### Fuzzing or fuzz testing involves bombarding a program with irregular inputs to uncover potential bugs and vulnerabilities.  
-#### Let's try to further understand this statement by looking at some of the...
+Fuzzing or fuzz testing involves bombarding a program with irregular inputs to uncover potential bugs and vulnerabilities.
+
+Let's try to further understand this statement by looking at some of the—
 
 # Fuzzing Methods
 
@@ -22,36 +23,35 @@ Fuzzing tools suited for whitebox testing: [AFLPlusPlus](https://github.com/AFLp
 
 ## Greybox Fuzzing
 * In this method, the tester has limited knowledge of the application, like function prototypes or the decompiled code.
-* This approach can be really useful for fuzzing closed-source libraries with API documentation that's readily accessible.
+* This approach can be useful for fuzzing closed-source libraries with API documentation that's readily accessible.
 * For example: *Microsoft Windows API*
 
 Fuzzing tools suited for greybox testing: [syzkaller](https://github.com/google/syzkaller/tree/master), [Hopper](https://github.com/FuzzAnything/Hopper), [aflnet](https://github.com/aflnet/aflnet), [aflgo](https://github.com/aflgo/aflgo), [boofuzz](https://github.com/jtpereyda/boofuzz), [AFLPlusPlus](https://github.com/AFLplusplus/AFLplusplus)
 
 ## Blackbox Fuzzing
-* When you find yourself with just the binary and no source code, this method is your best bet.
+* If you have just the binary file of the program and no source code, this method is your best bet.
 * Sometimes you might have to use emulation tools like [Qemu](https://github.com/AFLplusplus/qemuafl) or [Unicorn](https://github.com/AFLplusplus/unicornafl) to run binary files belonging to a different architecture.
 * Feedback in this case is measured via binary instrumentation.
 
 Fuzzing tools suited for blackbox testing: [radamsa](https://gitlab.com/akihe/radamsa), [winafl](https://github.com/googleprojectzero/winafl), [Peach Fuzzer](https://peachtech.gitlab.io/peach-fuzzer-community/), [AFLPlusPlus](https://github.com/AFLplusplus/AFLplusplus)
 
 ## Pitch-Blackbox Fuzzing
-* Okay, so I got a little creative here and just made this term up. But by 'pitch-black' I mean programs that cannot be emulated.  This distinction becomes really important when it comes to dynamic analysis like fuzzing.
-* For example: Programs designed to interact with specific hardware components.
-* This is known as the `re-hosting problem`[ [5] ]. This is a really big problem and there's very limited work done in this field [ [2], [3], [4] ].
+* Okay, so I got a little creative here and just made this term up. But by 'pitch-black' I mean programs that cannot be emulated.  This distinction becomes important when it comes to dynamic analysis like fuzzing, where you actually have to run the program.
+* For example: Embedded firmware designed to interact with specific hardware components.
+* This is sometimes known as the `re-hosting problem`[ [5] ]. It's quite a major problem and there's very limited work done in this field [ [2], [3], [4] ].
 
 Fuzzing tools suited for pitch-blackbox testing: 🌵🌀
 
-> **Note:** Okay, maybe [Firmwire](https://github.com/FirmWire/FirmWire) is an exception, but I'm not familiar with any other fuzzing tools like this. [Discord](https://discord.com/users/244064067541663744) me if you know something I don't.
+> **Note:** [Firmwire](https://github.com/FirmWire/FirmWire) is an exception, but I'm not familiar with any other fuzzing tools like this. [Discord](https://discord.com/users/244064067541663744) me if you know something I don't.
 
 ## But what is feedback?
-We need to somehow measure the efficacy of a fuzzing test.
-We need to get some kind of 'feedback' from the process while it's being fuzzed.  
-The fuzzer could then leverage the feedback obtained from the target process and adapt its input generation.
+We need to somehow measure the efficacy of a fuzzing test. For that, we need to get some kind of 'feedback' from the process while it's being fuzzed.  
+The fuzzer could also then leverage the feedback obtained from the target process and adapt its input generation.
 
 Feedback is usually measured using various metrics such as:
-1) Code Coverage: This is the most important form of feedback. It measures the extent to which the source code of a program has been executed during the testing process
-2) Edge Coverage: Even [100%](https://roelofjanelsinga.com/articles/100-test-coverage-why-or-why-not/) code coverage does not guarantee effective testing. As such, measurement of the transitions between basic blocks in the control flow graph of the program can also provide useful insight during fuzzing.
-3) Memory Usage: It can also be useful to keep track of how the target application allocates and deallocates memory during the execution of test cases. Generating inputs that lead to frequent memory allocations is an [effective](https://securitylab.github.com/research/fuzzing-software-2/) way of uncovering new bugs.
+1) Code Coverage: This is the most important form of feedback. It measures the extent to which the source code of a program has been executed during the testing process  
+2) Edge Coverage: Even [100%](https://roelofjanelsinga.com/articles/100-test-coverage-why-or-why-not/) code coverage does not guarantee effective testing. As such, measurement of the transitions between basic blocks in the control flow graph of the program can also provide useful insight during fuzzing.  
+3) Memory Usage: It can also be useful to keep track of how the target application allocates and deallocates memory during the execution of test cases. Generating inputs that lead to frequent memory allocations is an [effective](https://securitylab.github.com/research/fuzzing-software-2/) way of uncovering new bugs.  
 4) Input Validation: It might be helpful for the fuzzer to know whether the input being supplied to the target process is valid.
 
 > **Note:** The terms "feedback-driven" and "coverage-guided" are frequently used interchangeably, but they are not necessarily the same. Feedback-driven fuzzing is a broader term that encompasses coverage-guided fuzzing.

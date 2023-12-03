@@ -2,7 +2,7 @@
 layout: post
 title:  "Automated Chaos: A Brief Overview of Fuzzing"
 categories: [fuzzing,vulnerability-research]
-tags: [fuzzing, vulnerability-research]
+tags: [fuzzing, vulnerability-research, dynamic-analysis]
 ---
 
 # What is fuzzing, really?
@@ -37,11 +37,11 @@ Fuzzing tools suited for blackbox testing: [radamsa](https://gitlab.com/akihe/ra
 ## Pitch-Blackbox Fuzzing
 * Okay, so I got a little creative here and just made this term up. But by 'pitch-black' I mean programs that cannot be emulated.  This distinction becomes really important when it comes to dynamic analysis like fuzzing.
 * For example: Programs designed to interact with specific hardware components.
-* This is known as the re-hosting problem[ [5] ]. This is a really big problem and there's very limited work done in this field [ [2], [3], [4] ].
+* This is known as the `re-hosting problem`[ [5] ]. This is a really big problem and there's very limited work done in this field [ [2], [3], [4] ].
 
 Fuzzing tools suited for pitch-blackbox testing: 🌵🌀
 
-> **Note:** Okay, maybe [Firmwire](https://github.com/FirmWire/FirmWire) is an exception, but I'm not familiar with any other fuzzing tools like this. Hit me up on [Discord](https://discord.com/users/244064067541663744) if you know something I don't.
+> **Note:** Okay, maybe [Firmwire](https://github.com/FirmWire/FirmWire) is an exception, but I'm not familiar with any other fuzzing tools like this. [Discord](https://discord.com/users/244064067541663744) me if you know something I don't.
 
 ## But what is feedback?
 We need to somehow measure the efficacy of a fuzzing test.
@@ -88,7 +88,7 @@ Binary instrumentation, as the name suggests, involves modifying the compiled bi
 
 For instance, you can use dynamic instrumentation toolkits like [Frida](https://frida.re/) to inject JavaScript or native code into running processes or intercept and modify function calls.
 
-> **Note:** It might be possible to whip up a pretty interesting coverage-guided fuzzer using Frida, but I'm not sure how well it would perform. To my knowledge, I don't think anyone has done this. 
+> **Note:** It might be possible to contrive a pretty interesting coverage-guided fuzzer using Frida, but I'm not sure how well it would perform. To my knowledge, I don't think anyone has done this. 
 
 ## Input Seed Generation: Where Fuzzing Begins to Sprout
 The initial set of seed inputs in the corpus serves as a starting point for the fuzzer. These seeds are typically valid inputs that help the fuzzer understand the structure and expected format of input data.  
@@ -123,11 +123,9 @@ Examples:
 
 >if (header.magic_value == 0x12345678) goto terminate_now;
 
-This method by itself can be extremely powerful, such as mutating a string into valid [JPEG images](https://lcamtuf.blogspot.com/2014/11/pulling-jpegs-out-of-thin-air.html). 
-
-You could also further enhance this by making use of [AFL Dictionaries](https://github.com/AFLplusplus/AFLplusplus/blob/stable/dictionaries/README.md) by generating a set of valid inputs to guide the mutation process. 
-
-Lexical mutations involve modifying the input data while taking into account these specific values, like deleting, or substituting characters or tokens.
+This method by itself can be extremely powerful, such as mutating a string into valid [JPEG images](https://lcamtuf.blogspot.com/2014/11/pulling-jpegs-out-of-thin-air.html).   
+You could also further enhance this by making use of [AFL Dictionaries](https://github.com/AFLplusplus/AFLplusplus/blob/stable/dictionaries/README.md) by generating a set of valid inputs to guide the mutation process.  
+Lexical mutations involve modifying the input data while taking into account these special values.
 
 ### Syntactic
 This is useful for fuzzing programs that require highly structured inputs such as interpreters and compilers[ [6] ]. Additionally, you can think of this as feeding the target program input data that can find crashes "deeper" in the program.
@@ -135,9 +133,21 @@ This is useful for fuzzing programs that require highly structured inputs such a
 ![tree](/images/tree.png)  
 Source: https://github.com/nautilus-fuzz/nautilus/tree/master
 
-Grammar-aware fuzzing is usually done by providing the fuzzer a grammar file. [ [7], [8], [9] ]
+Grammar-aware fuzzing is usually done by providing the fuzzer with a grammar file. [ [7], [8], [9] ]  
+[Nautilus](https://github.com/nautilus-fuzz/nautilus/tree/master) also allows you to specify a script rule along with the grammar file.  
+One interesting use case for this is to generate a valid Message Authentication Code [(MAC)](https://www.techtarget.com/searchsecurity/definition/message-authentication-code-MAC) of the input data created by the fuzzer.
 
-> **Note:** The grammar file doesn't have to be comprehensive for fuzzing purposes. But exactly how much "structure" one should provide to find the most bugs is an interesting question. (Again, if you know something about this....[Discord](https://discord.com/users/244064067541663744))
+``` python 
+# Grammar rule for HEADER
+# Grammar rule for BODY
+
+ctx.script("MIME", ["HEADER", "BODY"], lambda header, body, hashlib=__import__('hashlib'):"{}\nX-MAC:{}\n\n{}".format(header.decode("utf-8"), hashlib.sha256(header + b'\n\n' + body).hexdigest(), body.decode("utf-8")))
+```
+This script will generate a sha256 hash of the [MIME](https://datatracker.ietf.org/doc/html/rfc1341) header and body generated by the fuzzer, and then it will append the X-MAC header before sending the input to the target program.  
+This may be useful since the target program may simply discard the input data generated by the fuzzer if the MAC is invalid, resulting in limited coverage.
+
+
+> **Note:** The grammar file doesn't have to be comprehensive for fuzzing purposes. But exactly how much "structure" one should provide to find the most bugs is an interesting question. (Again, if you know something about this, here's my [Discord](https://discord.com/users/244064067541663744))
 
 ### Semantic
 Semantic mutations require an understanding of the underlying semantics program's API, such as the s function signatures and type definitions [ [10] ].
@@ -176,6 +186,8 @@ This [blog post](https://barro.github.io/2018/06/afl-fuzz-on-different-file-syst
 ### Syscalls
 If you have access to the source code, you may want to eliminate any potentially harmful syscalls, as you never know how the program is going to behave while being fuzzed.
 Additionaly, if you have just the binary file, you can make use of custom preload libraries such as [preeny](https://github.com/zardus/preeny) to dynamically change the behavior of the syscalls.
+
+![Murphy](/images/murphy.webp)
  
 #### Other reasons to edit syscalls may include:
 * Redirecting socket IO to the console
@@ -208,11 +220,11 @@ AFL_TMPDIR=/ramdisk aflplusplus/aflplusplus
 [10]: https://arxiv.org/pdf/2309.03496.pdf
 
 ## Some additional references
-https://github.com/antonio-morales/Fuzzing101
-https://j00ru.vexillium.org/slides/2016/blackhat.pdf
-https://www.fuzzingbook.org/
-https://moyix.blogspot.com/2016/07/fuzzing-with-afl-is-an-art.html
-https://lcamtuf.blogspot.com/2015/04/finding-bugs-in-sqlite-easy-way.html
-https://blog.attify.com/fuzzing-iot-devices-part-1/
-https://users.cs.utah.edu/~snagy/courses/cs5963/schedule
-https://github.com/parikhakshat/autoharness
+https://github.com/antonio-morales/Fuzzing101  
+https://j00ru.vexillium.org/slides/2016/blackhat.pdf  
+https://www.fuzzingbook.org/  
+https://moyix.blogspot.com/2016/07/fuzzing-with-afl-is-an-art.html  
+https://lcamtuf.blogspot.com/2015/04/finding-bugs-in-sqlite-easy-way.html  
+https://blog.attify.com/fuzzing-iot-devices-part-1/  
+https://users.cs.utah.edu/~snagy/courses/cs5963/schedule  
+https://github.com/parikhakshat/autoharness  

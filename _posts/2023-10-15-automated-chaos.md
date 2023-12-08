@@ -11,7 +11,7 @@ tags: [fuzzing, vulnerability-research, dynamic-analysis]
 
 Fuzzing or fuzz testing involves bombarding a program with irregular inputs to uncover potential bugs and vulnerabilities.
 
-Let's try to further understand this statement by looking at some of the—
+Let's try to further understand this by looking at some of the—
 
 # Fuzzing Methods
 

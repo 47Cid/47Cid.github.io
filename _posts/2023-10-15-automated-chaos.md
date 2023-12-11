@@ -108,6 +108,7 @@ This involves aggressive and chaotic mutations of the input data like:
 * Random bit/byte flipping
 * Deterministic arithmetics
 * Combining portions of different inputs
+* Splicing (Combining two inputs from the queue)
 * Overwriting the input with interesting 8, 16, and 32-bit values
 
 ![Random](/images/im_so_random_2x.png)

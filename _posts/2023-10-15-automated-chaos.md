@@ -107,7 +107,6 @@ Inputs that lead to new or uncovered code paths are considered interesting and m
 This involves aggressive and chaotic mutations of the input data like:
 * Random bit/byte flipping
 * Deterministic arithmetics
-* Combining portions of different inputs
 * Splicing (Combining two inputs from the queue)
 * Overwriting the input with interesting 8, 16, and 32-bit values
 

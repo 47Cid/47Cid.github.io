@@ -4,3 +4,5 @@ title:  "Cracking the Code: A light-hearted walkthrough of Control Property Grap
 categories: [SAST, Joern,vulnerability-research]
 tags: [ vulnerability-research, SAST, static-analysis, Joern]
 ---
+
+![](/images/work.gif)

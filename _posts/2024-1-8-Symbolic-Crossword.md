@@ -18,3 +18,5 @@ Aside from being able to solve your Algebra homework, symbolic execution has num
 * Type Inference
 
 ## Crosswords
+Another neat way to apply symbolic exectution, is to make a crossword solving program.
+

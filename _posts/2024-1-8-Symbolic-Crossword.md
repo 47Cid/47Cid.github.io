@@ -43,10 +43,10 @@ for (int i = 0; i < SIZE; i++) {
         }
     }
 ```
-> The rest of the (tribble) code can be found here: https://github.com/47Cid/Symbolic-Crossword/tree/main 
+> The rest of the (terrible) code can be found here: https://github.com/47Cid/Symbolic-Crossword/tree/main 
 
 The program gets a value from the user, updates the crossword grid, and then checks if it was the intended solution.  
-So what we need to find out here is what value will go into the "correct" branch.  
+So what we need to find out here is what value will go into the "correct" path.  
 This problem is well-suited for symbolic execution.
 
 I am going to be using the [KLEE](https://klee.github.io/docs/) symbolic execution engine.

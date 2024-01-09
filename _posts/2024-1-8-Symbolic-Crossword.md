@@ -49,4 +49,4 @@ The program gets a value from the user, updates the crossword grid, and then che
 So what we need to find out here is what value will go into the "correct" branch.  
 This problem is well-suited for symbolic execution.
 
-I am going to be using the [KLEE](https://klee.github.io/docs/) symbolic engine.
+I am going to be using the [KLEE](https://klee.github.io/docs/) symbolic execution engine.

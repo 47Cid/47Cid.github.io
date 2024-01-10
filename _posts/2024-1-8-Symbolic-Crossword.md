@@ -67,13 +67,49 @@ Now that we have a symbolic value, we can execute the program symbolically.
 
 The symbolic execution engine will explore all the paths of our program.
 However, we don't care about all the paths. We just want to find the values that make the __puzzle[i][j]__ == __solution[index]__ condition true.  
-Basically, we need KLEE to inform us when our desired condition is met. This can be done using the "klee_assert()" function.
+Basically, we need KLEE to inform us when our desired condition is met by throwing an error. This can be done using the "klee_assert()" function.
 ```c
 if (puzzle[i][j] == solution[index]) {
     printf("Correct!\n");
     klee_assert(0);
 } 
 ```
+
+Now we can compile our code into LLVM bitcode and run KLEE.
+
+```shell
+clang -I ./klee_build/include/ -emit-llvm -c crossword.c
+klee --emit-all-errors crossword.bc
+```
+> **Note:** KLEE will only give you the first error condition by default. So, we need to use the --emit-all-erros flag.
+
+## Solution
+Sample crossword puzzle:
+```c
+char puzzle[SIZE][SIZE] = {
+        {'C', 'A', '.'},
+        {'A', '.', 'E'},
+        {'N', '.', '.'},
+};
+```
+The solution to this trivial crossword puzzle is: 
+```c
+char puzzle[SIZE][SIZE] = {
+        {'C', 'A', 'N'},
+        {'A', 'G', 'E'},
+        {'N', 'O', 'W'},
+};
+```
+
+As expected, KLEE was able to calculate the solutions(i.e. N, G, O, and W respectively).
+
+![](/images/1.png)
+
+![](/images/2.png)
+
+![](/images/3.png)
+
+![](/images/4.png)
 
 ## References
 https://feliam.wordpress.com/2010/10/07/the-symbolic-maze/

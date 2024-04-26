@@ -9,11 +9,6 @@ tags: [malware-analysis, windows-security, ]
 
 # Redline Stealer Analysis
 
-April 17th, 2024
-Siddhant Kalgutkar
-s.kalgutkar@ufl.edu
-Malware Reverse Engineering
-Spring 2024 - P0x03
 ## Executive Summary 
 The malware is a dotnet executable, which acts as an info stealer. It is obfuscated using ConfuserEx and string replacement.
 

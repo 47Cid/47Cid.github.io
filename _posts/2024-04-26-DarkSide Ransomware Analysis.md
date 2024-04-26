@@ -87,7 +87,7 @@ As expected, the malware does not display any networking activity.
 
 ## Ghidra Analysis 
 
-![](/images/Screenshot%202024-02-19%20172123.png| Check out this amazing picture.)
+![](/images/Screenshot%202024-02-19%20172123.png)
 >Overview of the entry function
 
 ![](/images/Screenshot%202024-02-18%20103248.png)
@@ -195,7 +195,7 @@ It generates this key based on the base64 string.
 
 ![](/images/Screenshot%202024-02-18%20175356.png)
 
-![](/images/Screenshot%202024-02-16%20191311 1.png)
+![](/images/Screenshot%202024-02-16%20191311%201.png)
 > **Return value of the get_key function**
 
 This is the key that gets imported into the Cryptographic context. Since this key is derived from the original base64 string, this key will always be the same. 
